@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/SignIn.scss";
 import image from "../../assets/login_register/teamWork.svg";
@@ -35,7 +35,7 @@ let navigate=useNavigate()
       setLoader(true);
       await axios
         .post(
-          `https://new-didital-card-server.onrender.com/api/auth/signup`,
+          `https://fullstack-mern-auth-project.onrender.com/api/auth/signup`,
           signUpformData
         )
         .then((responce) => {
@@ -69,7 +69,7 @@ let navigate=useNavigate()
       setLoader(true);
       await axios
         .post(
-          `https://new-didital-card-server.onrender.com/api/auth/signin`,
+          `https://fullstack-mern-auth-project.onrender.com/api/auth/signin`,
           signInformData
         )
         .then((responce) => {
