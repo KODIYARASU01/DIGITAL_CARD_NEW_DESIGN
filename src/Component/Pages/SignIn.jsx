@@ -4,7 +4,7 @@ import "../styles/SignIn.scss";
 import image from "../../assets/login_register/teamWork.svg";
 import signup from "../../assets/login_register/codeThinker.svg";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   signInFailure,
@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 
 const SignIn = () => {
   let dispatch = useDispatch();
-let navigate=useNavigate()
+  let navigate = useNavigate();
   let [loader, setLoader] = useState(false);
 
   // let url=import.meta.env.SERVER_LINK;
@@ -30,7 +30,6 @@ let navigate=useNavigate()
   //Submit Form:
   let handleSignUpSubmit = async (e) => {
     e.preventDefault();
-
     try {
       setLoader(true);
       await axios
@@ -52,6 +51,7 @@ let navigate=useNavigate()
         });
     } catch (err) {
       console.log(err);
+      setLoader(false);
     }
   };
   //Sign In :
@@ -82,9 +82,9 @@ let navigate=useNavigate()
           }
           setLoader(false);
           toast.success(responce.data.message);
-          setTimeout(()=>{
-            navigate('/admin')
-          })
+          setTimeout(() => {
+            navigate("/admin");
+          });
         })
         .catch((error) => {
           dispatch(signInFailure());
@@ -93,6 +93,7 @@ let navigate=useNavigate()
         });
     } catch (err) {
       console.log(err);
+      setLoader(false);
     }
   };
   return (
@@ -109,7 +110,7 @@ let navigate=useNavigate()
           draggable
           pauseOnHover
           theme="light"
-          transition:Bounce
+          transition:Slide
         />
         <div className="box_container">
           {!formToggle ? (
@@ -244,13 +245,13 @@ let navigate=useNavigate()
                 <div className="form_submit">
                   <button type="submit">
                     Sign In {loader ? <span className="loader"></span> : ""}
-                    {!loader ? (
+                    {/* {!loader ? (
                       <div className="rocket">
                         <i className="bx bxs-rocket bx-flashing"></i>
                       </div>
                     ) : (
                       ""
-                    )}
+                    )} */}
                   </button>
                 </div>
                 <div className="or">
