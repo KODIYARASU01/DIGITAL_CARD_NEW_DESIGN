@@ -115,13 +115,13 @@ const SignIn = () => {
               </div>
               <div className="form_submit">
                 <button type="submit">
-                  Sign In {loader ? <span className="loader"></span> : ""}
-                  {!loader ? (
+                  Sign In{" "}
+                  {loader ? (
+                    <span className="loader"></span>
+                  ) : (
                     <div className="rocket">
                       <i className="bx bxs-rocket bx-flashing"></i>
                     </div>
-                  ) : (
-                    ""
                   )}
                 </button>
               </div>

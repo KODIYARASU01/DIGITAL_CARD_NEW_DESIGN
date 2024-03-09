@@ -6,7 +6,7 @@ import axios from "axios";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const SignUp = () => {
-    let navigate=useNavigate();
+  let navigate = useNavigate();
   let [loader, setLoader] = useState(false);
   //Sign Up :
   let [signUpformData, setSignUpFormData] = useState({});
@@ -32,7 +32,7 @@ const SignUp = () => {
           });
           setLoader(false);
           setTimeout(() => {
-           navigate('/')
+            navigate("/");
           }, 2000);
         })
         .catch((error) => {
@@ -42,7 +42,6 @@ const SignUp = () => {
             transition: Slide,
           });
           setLoader(false);
-
         });
     } catch (err) {
       console.log(err);
@@ -108,13 +107,12 @@ const SignUp = () => {
               <div className="form_submit">
                 <button type="submit">
                   Sign Up
-                  {loader ? <span className="loader"></span> : ""}
-                  {!loader ? (
+                  {loader ? (
+                    <span className="loader"></span>
+                  ) : (
                     <div className="rocket">
                       <i className="bx bxs-rocket bx-flashing"></i>
                     </div>
-                  ) : (
-                    ""
                   )}
                 </button>
               </div>
