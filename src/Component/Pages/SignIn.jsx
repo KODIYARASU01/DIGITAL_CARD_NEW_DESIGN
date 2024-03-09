@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, {useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/SignIn.scss";
 import image from "../../assets/login_register/teamWork.svg";
 import signup from "../../assets/login_register/codeThinker.svg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import "ldrs/bouncy";
-
+import {
+  signInFailure,
+  signInSuccess,
+  signInStart,
+} from "../../redux/user/userSlice.js";
+import { useDispatch } from "react-redux";
 
 const SignIn = () => {
+  let dispatch = useDispatch();
+let navigate=useNavigate()
   let [loader, setLoader] = useState(false);
 
   // let url=import.meta.env.SERVER_LINK;
@@ -29,7 +35,7 @@ const SignIn = () => {
       setLoader(true);
       await axios
         .post(
-          `https://fullstack-mern-auth-project.onrender.com/api/auth/signup`,
+          `https://new-didital-card-server.onrender.com/api/auth/signup`,
           signUpformData
         )
         .then((responce) => {
@@ -57,20 +63,37 @@ const SignIn = () => {
   //Submit Form:
   let handleSignInSubmit = async (e) => {
     e.preventDefault();
-    setLoader(true);
-    await axios
-      .post(
-        `https://fullstack-mern-auth-project.onrender.com/api/auth/signin`,
-        signInformData
-      )
-      .then((responce) => {
-        setLoader(false);
-        toast.success(responce.data.message);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        setLoader(false);
-      });
+
+    try {
+      dispatch(signInStart());
+      setLoader(true);
+      await axios
+        .post(
+          `https://new-didital-card-server.onrender.com/api/auth/signin`,
+          signInformData
+        )
+        .then((responce) => {
+          let data = responce.data.rest;
+          console.log(data);
+          dispatch(signInSuccess(data));
+
+          if (data.success === false) {
+            dispatch(signInFailure());
+          }
+          setLoader(false);
+          toast.success(responce.data.message);
+          setTimeout(()=>{
+            navigate('/admin')
+          })
+        })
+        .catch((error) => {
+          dispatch(signInFailure());
+          toast.error(error.response.data.message);
+          setLoader(false);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
