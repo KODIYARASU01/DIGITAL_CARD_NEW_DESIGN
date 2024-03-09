@@ -4,7 +4,7 @@ import "../styles/SignIn.scss";
 import image from "../../assets/login_register/teamWork.svg";
 import signup from "../../assets/login_register/codeThinker.svg";
 import axios from "axios";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   signInFailure,
@@ -38,14 +38,22 @@ const SignIn = () => {
           signUpformData
         )
         .then((responce) => {
-          toast.success(responce.data.message);
+          toast.success(responce.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            transition: Slide,
+          });
           setLoader(false);
           setTimeout(() => {
             setFormToggle(false);
           }, 2000);
         })
         .catch((error) => {
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            transition: Slide,
+          });
           setLoader(false);
           setFormToggle(true);
         });
@@ -81,14 +89,23 @@ const SignIn = () => {
             dispatch(signInFailure());
           }
           setLoader(false);
-          toast.success(responce.data.message);
+          toast.success(responce.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            transition: Slide,
+          });
+
           setTimeout(() => {
             navigate("/admin");
           });
         })
         .catch((error) => {
           dispatch(signInFailure());
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            transition: Slide,
+          });
           setLoader(false);
         });
     } catch (err) {
@@ -100,17 +117,11 @@ const SignIn = () => {
     <>
       <div className="signin_container">
         <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
           closeOnClick
-          rtl={false}
           pauseOnFocusLoss
           draggable
           pauseOnHover
           theme="light"
-          transition:Slide
         />
         <div className="box_container">
           {!formToggle ? (
